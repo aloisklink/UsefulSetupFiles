@@ -42,3 +42,19 @@ unzip tmp/LanguageTool-3.5.zip
 rm -rf tmp/
 ```
 
+## Installing IEEE Bibliography Files
+
+```bash
+mkdir tmp/
+cd tmp/
+wget http://www.ieee.org/documents/IEEEtranBST.zip
+unzip IEEEtranBST.zip
+sudo mv *.bst /usr/share/texlive/texmf-dist/bibtex/bst/
+```
+
+Then they can be used in LaTeX by adding this to your code:
+```latex
+\bibliographystyle{IEEEtran}
+```
+
+
