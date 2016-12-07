@@ -49,7 +49,11 @@ mkdir tmp/
 cd tmp/
 wget http://www.ieee.org/documents/IEEEtranBST.zip
 unzip IEEEtranBST.zip
-sudo mv *.bst /usr/share/texlive/texmf-dist/bibtex/bst/
+sudo mkdir /etc/texmf/bibtex/
+sudo mkdir /etc/texmf/bibtex/bst/
+sudo mv *.bst /etc/texmf/bibtex/bst/
+cd ../
+rm -rf tmp/
 ```
 
 Then they can be used in LaTeX by adding this to your code:
