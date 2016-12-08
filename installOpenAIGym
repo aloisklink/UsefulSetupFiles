@@ -1,0 +1,32 @@
+#!/bin/bash
+
+mkdir tmp/
+cd tmp/
+
+commandExists () {
+    type "$1" &> /dev/null ;
+}
+
+#installs pip
+if ! commandExists pip; then
+	wget https://bootstrap.pypa.io/get-pip.py
+	python get-pip.py --user
+fi
+
+PATH=$PATH:~/.local/bin
+
+#installs cmake
+if ! commandExists cmake; then
+	git clone https://cmake.org/cmake.git 
+	cd cmake
+	./configure --prefix=~/.local/
+	make
+	make install
+	cd ../
+fi
+
+#installs openai
+git clone https://github.com/openai/gym.git
+cd gym
+pip install -e '.[atari]' --user
+cd ../
