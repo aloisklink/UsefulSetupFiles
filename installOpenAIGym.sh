@@ -31,7 +31,7 @@ else
 	LIBC_VER_NEEDED=ldd ~/.local/bin/cmake |& grep -Po regex | grep -Pom 1 regex1
 	LIBC_CURRENT_VER=ldd --version | awk '/ldd/{print $NF}'
 
-	if[$LIBC_VER_NEEDED > $LIBC_CURRENT_VER]
+	if[ LIBC_VER_NEEDED > $LIBC_CURRENT_VER]
 		git clone git://sourceware.org/git/glibc.git
 		mkdir glibcbuild/
 		cd glibcbuild/
