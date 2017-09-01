@@ -60,6 +60,17 @@ sed -i -e 's/.*PermitRootLogin.*/PermitRootLogin yes/' -e 't' -e '$ a\PermitRoot
 # UsePAM no, for some reason PAM doesn't work on GNURoot Debian
 sed -i -e 's/.*UsePAM.*/UsePAM no/' -e 't' -e '$ a\UsePAM no' /etc/ssh/sshd_config
 
+# GNURoot Debian can't use systemd, so ssh doesn't automatically startup on boot
+# However, making it startup on login is good enough, since the app
+# automatically logins on startup.
+LAUNCH_SSH_SERVICE='
+service ssh start
+'
+echo "$LAUNCH_SSH_SERVICE" > /etc/profile.d/launchSSHService.sh
+
+# for some reason default bash command doesn't source /etc/profile so force it to.
+# this means the moment GNURoot Debian is openned, the ssh service is started
+echo "source /etc/profile" > /home/.bashrc
 
 service ssh restart
 echo "Should have started ssh-server at $(hostname -I) with port 2022."
